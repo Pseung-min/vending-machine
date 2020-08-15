@@ -97,7 +97,25 @@ void MainWindow::on_pbMilk_clicked()
 void MainWindow::on_pbReset_clicked()
 {
     QMessageBox m;
-    m.information(nullptr, "Reset",QString("%1 -> 0\nReset Success").arg(money));
+//    m.information(nullptr, "Reset",QString("%1 -> 0\nReset Success").arg(money));
+
+    std::string won_500, won_100, won_50, won_10;
+    won_500 = std::to_string(money/500);
+    money %= 500;
+    won_100 = std::to_string(money/100);
+    money %= 100;
+    won_50 = std::to_string(money/50);
+    money %= 50;
+    won_10 = std::to_string(money/10);
+    money %= 10;
+
+    std::string output = "500won => " + won_500 + "\n" +
+            "100won => " + won_100 + "\n" +
+            "50won => " + won_50 + "\n" +
+            "10won => " + won_10;
+    const char *op = output.c_str();
+    m.information(nullptr, "notice", op);
+
     money = 0;
     ui->lcdNumber->display(money);
     changeMoney(money);
